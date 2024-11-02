@@ -48,6 +48,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    @State var t: Bool = false
-    ContentView(titleOn: t)
+    ContentView(titleOn: true)
 }

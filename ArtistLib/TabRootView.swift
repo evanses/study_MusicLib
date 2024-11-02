@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabRootView: View {
-    @Binding var titleOn: Bool 
+    @AppStorage("titleOn") var titleOn: Bool = true
     
     var body: some View {
         TabView() {
@@ -29,6 +29,5 @@ struct TabRootView: View {
 }
 
 #Preview {
-    @State var t: Bool = true
-    TabRootView(titleOn: $t)
+    TabRootView()
 }

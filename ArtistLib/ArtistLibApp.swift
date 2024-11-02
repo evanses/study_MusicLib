@@ -10,11 +10,9 @@ import SwiftUI
 @main
 struct ArtistLibApp: App {
     let persistenceController = PersistenceController.shared
-    @AppStorage("titleOn") var titleOn: Bool = true
-
     var body: some Scene {
         WindowGroup {
-            TabRootView(titleOn: $titleOn)
+            TabRootView()
         }
     }
 }
