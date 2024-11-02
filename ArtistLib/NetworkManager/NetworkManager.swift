@@ -95,13 +95,11 @@ final class NetworkManager {
                 return
             }
             
-            DispatchQueue.main.async {
-                guard let uiImage = UIImage(data: data) else {
-                    completion(.failure(.noData))
-                    return
-                }
-                completion(.success(Image(uiImage: uiImage)))
+            guard let uiImage = UIImage(data: data) else {
+                completion(.failure(.noData))
+                return
             }
+            completion(.success(Image(uiImage: uiImage)))
         }.resume()
     }
 

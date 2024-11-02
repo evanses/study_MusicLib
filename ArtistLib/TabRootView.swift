@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct TabRootView: View {
+    @Binding var titleOn: Bool 
     
     var body: some View {
         TabView() {
-            ContentView()
+            ContentView(titleOn: titleOn)
                 .tabItem {
                     Label("Artists", systemImage: "music.note.list")
                 }
@@ -19,14 +20,15 @@ struct TabRootView: View {
                 .tabItem {
                     Label("Hello World", systemImage: "questionmark.circle")
                 }
-            SettingsView()
+            SettingsView(titleOn: $titleOn)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
-        }
+            }
     }
 }
 
 #Preview {
-    TabRootView()
+    @State var t: Bool = true
+    TabRootView(titleOn: $t)
 }

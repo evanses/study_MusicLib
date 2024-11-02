@@ -38,7 +38,7 @@ struct InfoDetails: View {
                     .padding()
             }
         }
-        .onAppear() {
+        .task {
             NetworkManager.shared.fetchArtistInfo(artistTitle: artist.name) { result in
                 switch result {
                 case .failure(let error):
