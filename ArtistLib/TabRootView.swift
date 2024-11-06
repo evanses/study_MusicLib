@@ -8,22 +8,27 @@
 import SwiftUI
 
 struct TabRootView: View {
+    @State private var tabSelection = 0
+    @State var currentSong: NavidromeSong?
     @AppStorage("titleOn") var titleOn: Bool = true
     
     var body: some View {
-        TabView() {
-            ContentView(titleOn: titleOn)
+        TabView(selection: $tabSelection) {
+            ContentView(selectedSong: $currentSong, tabSelection: $tabSelection, titleOn: titleOn)
                 .tabItem {
-                    Label("Artists", systemImage: "music.note.list")
+                    Label("Library", systemImage: "music.note.list")
                 }
-            HelloView()
+                .tag(0)
+            NowPlayerView(currentSong: currentSong)
                 .tabItem {
-                    Label("Hello World", systemImage: "questionmark.circle")
+                    Label("Player", systemImage: "play.circle")
                 }
+                .tag(1)
             SettingsView(titleOn: $titleOn)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+                .tag(2)
             }
     }
 }
