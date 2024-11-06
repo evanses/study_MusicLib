@@ -10,10 +10,8 @@ import SwiftUI
 struct Artist {
     let id: Int
     let name: String
-    let playcount: Int
-    let listeners: Int
-    let url: String
-    let imageUrl: String
+    let albumCount: Int
+    let imageId: String
 }
 
 struct ArtistInfo {

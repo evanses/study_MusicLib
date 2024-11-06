@@ -54,7 +54,6 @@ struct SettingsView: View {
 }
 
 #Preview {
-    @State var t: Bool = true
-    SettingsView(titleOn: $t)
+    SettingsView(titleOn: .constant(true))
         .environment(ColorTheme())
 }

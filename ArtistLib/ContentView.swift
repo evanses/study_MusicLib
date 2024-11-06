@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var artists = [Artist]()
+    @Binding var selectedSong: NavidromeSong?
+    @Binding var tabSelection: Int
+    @State private var songs = [NavidromeSong]()
     var titleOn: Bool
 
     var body: some View {
@@ -16,37 +18,44 @@ struct ContentView: View {
             List() {
                 if titleOn {
                     Section() {
-                        Text("ТОП Артистов")
+                        Text("Случайные треки")
                     }
                 }
-                ForEach(artists, id: \.id) { artist in
-                    NavigationLink {
-                        InfoDetails(artist: artist)
-                    } label: {
-                        ArtistRowView(artist: artist)
-                    }
+                ForEach(songs, id: \.id) { song in
+//                    NavigationLink {
+//                        InfoDetails(song: song)
+//                    } label: {
+//                        SongRowView(song: song)
+//                    }
+                    SongRowView(song: song)
+                        .onTapGesture {
+                            print("tapped")
+                            selectedSong = song
+                            tabSelection = 1
+                        }
                 }
             }
             .navigationBarTitleDisplayMode(.large)
             .task {
-                fetchArtists()
+                fetchRandomSongs()
             }
         }
     }
     
-    private func fetchArtists() {
-        NetworkManager.shared.fetchArtistChart { result in
+    private func fetchRandomSongs() {
+        NetworkManager.shared.fetchRandomSongs { result in
             switch result {
-            case .success(let fetchedArtists):
-                self.artists = fetchedArtists.sorted(by: { $0.id < $1.id })
+            case .success(let fetchedSongs):
+                self.songs = fetchedSongs
             case .failure(let error):
                 print(error)
             }
         }
-
     }
 }
 
 #Preview {
-    ContentView(titleOn: true)
+    @State var tabSelection = 1
+    @State var selectedSong: NavidromeSong? = nil
+    ContentView(selectedSong: $selectedSong, tabSelection: $tabSelection, titleOn: true)
 }
